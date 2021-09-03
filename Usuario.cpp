@@ -1,11 +1,10 @@
 #include "Usuario.h"
 
-Usuario::Usuario(int id, string _nombre,string _usuario,string _contra, bool esAdmin ){
-	id = _id;
-	nombre=_nombre;
+Usuario::Usuario(int id,string _usuario,string _contra, bool esAdmin ){
+	id = id;
 	usuario = _usuario;
 	contra = _contra;
-	esAdmin = _esadmin;
+	esAdmin = esAdmin;
 }
 
 Usuario::~Usuario(){
@@ -15,16 +14,8 @@ int Usuario::getId(){
 	return id;
 }
 
-void Usuario::setId(int _id){
-	id= _id;
-}
-
-string Usuario::getNombre(){
-	return nombre;
-}
-
-void Usuario::setNombre(string _nombre){
-	nombre= _nombre;
+void Usuario::setId(int id){
+	id= id;
 }
 
 string Usuario::getUser(){
@@ -47,8 +38,8 @@ bool Usuario::getEsAdmin(){
 	return esAdmin;
 }
 
-void Usuario::setEsAdmin(bool _esadmin){
-	nombre= _esadmin;
+void Usuario::setEsAdmin(bool esAdmin){
+	esAdmin= esAdmin;
 }
 
 vector<Publicacion*> Usuario::getPublicaciones(){

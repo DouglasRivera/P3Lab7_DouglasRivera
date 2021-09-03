@@ -1,7 +1,7 @@
 #include "Publicacion.h"
 
 Publicacion::Publicacion(int idpublicacion, string titulo, Usuario* autor, string texto, string fechapublicacion){
-	idpublicacion=idpublicacion;
+	idpublicacion = idpublicacion;
 	titulo = titulo;
 	autor = autor;
 	texto = texto;
@@ -15,7 +15,7 @@ int Publicacion::getIdpublicacion(){
 	return idpublicacion;
 }
 
-void Publicacion::setIdPublicacion(int idpublicacion){
+void Publicacion::setIdpublicacion(int idpublicacion){
 	idpublicacion = idpublicacion;
 }
 
@@ -53,7 +53,7 @@ void Publicacion::setFechapublicacion(string fechapublicacion){
 
 void Publicacion::guardarPublicaciones(ofstream* archivoPublicaciones){
 	if (archivoPublicaciones-> is_open()){
-		*archivoUsuarios << this->idpublicacion << "," << this->titulo << "," << this->autor << "," << this->texto << "," this->fechapublicacion;
+		*archivoPublicaciones << this->idpublicacion << "," << this->titulo << "," << this->autor << "," << this->texto << "," << this->fechapublicacion;
 	}
 }
 

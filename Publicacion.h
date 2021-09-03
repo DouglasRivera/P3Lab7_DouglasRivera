@@ -1,14 +1,22 @@
 #ifndef PUBLICACION_H
 #define PUBLICACION_H
 #include <string>
-#include <iostream>
+#include <vector>
 #include <fstream>
+#include <iostream>
 #include "Usuario.h"
 
 using namespace std;
 
 class Publicacion
 {
+    private:
+		int idpublicacion; 
+		string titulo;
+		Usuario* autor;
+		string texto;
+		string fechapublicacion;
+		
 	public:
 		Publicacion(int, string, Usuario*, string, string);
 		~Publicacion();
@@ -23,12 +31,7 @@ class Publicacion
 		string getFechapublicacion();
 		void setFechapublicacion(string);
 		void guardarPublicaciones(ofstream*);
-	private:
-		int idPublicacion; 
-		string titulo;
-		Usuario* autor;
-		string texto;
-		string fechaPublicacion;
+	
 };
 
 #endif
