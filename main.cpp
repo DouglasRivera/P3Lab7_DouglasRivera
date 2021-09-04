@@ -26,12 +26,12 @@ int main() {
 		fstream CreateFile2("publicaciones.csv", ios::out);
 	}
 	file2.open("publicaciones.csv", ios::app);
-	int x = 0;
+	int log = 0;
 	int aux = 0;
 	bool aux2 = false;
 	vector<Usuario*> usuarios;
-	while ((x = LogIn()) != 2) {
-		if (x == 1) {
+	while ((log= LogIn()) != 2) {
+		if (log == 1) {
 			string user;
 			string pass;
 			cout << "Ingrese usuario: ";
@@ -281,7 +281,7 @@ Publicacion* agregarPublicacion() {
 
 int LogIn() {
 	int opcion = 0;
-	cout <<endl << "--------Menu---------"<<endl;
+	cout <<endl << "--------INICIO DE SESION---------"<<endl;
 	cout << "1. Log in" << endl;
 	cout << "2. Log out" << endl;
 	cout << "\nIngrese la opcion que desea desarrollar: " << endl;
