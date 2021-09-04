@@ -10,8 +10,22 @@ int menu();
 int menu2();
 int LogIn();
 Usuario* agregarUsuario();
+Publicacion* agregarPublicacion();
+fstream file;
+fstream file2;
 
 int main() {
+	fstream Readfile("usuarios.csv", ios::in);
+	if (!Readfile) {
+		fstream CreateFile("usuarios.csv", ios::out);
+	}
+	file.open("usuarios.csv", ios::app);
+
+	fstream Readfile2("publicaciones.csv", ios::in);
+	if (!Readfile2) {
+		fstream CreateFile2("publicaciones.csv", ios::out);
+	}
+	file2.open("publicaciones.csv", ios::app);
 	int x = 0;
 	int aux = 0;
 	bool aux2 = false;
@@ -91,9 +105,105 @@ int main() {
 				}
 			} else if(aux2) {
 				int z;
-				while ((z = menu2()) != 4 ) {
-						
+				Usuario *users;
+				users = usuarios.at(aux);
+				while ((z = menu()) != 4 ) {
+					if (z == 1) {
+						vector<Publicacion*> temporal;
+						temporal = users->getPublicaciones();
+						if (!temporal.empty()) {
+							for (int i = 0; i < temporal.size(); i++) {
+								Publicacion* p;
+								p = temporal.at(i);
+								cout << i << ") ";
+								p->verPublicacion();
+							}
+						} else {
+							cout << endl << "No hay publicaciones Actualmente";
+						}
+					} else if (z == 2) {
+						int opcionAdmin = 0;
+						while(opcionAdmin != 4) {
+							cout << endl << "MENU\n1.Agregar Publicacion\n2.Modificar Publicacion\n3.Borrar Publicacion\n4.Salir" << endl;
+							cin >> opcionAdmin;
+							if (opcionAdmin == 1) {
+								users->agregarPublicacion(agregarPublicacion());
+							} else if (opcionAdmin == 2) {
+								vector<Publicacion*> temporal;
+								temporal = users->getPublicaciones();
+								if (!temporal.empty()) {
+									cout << endl << "Estas son las Publicaciones que ha publicado hasta el momento: " << endl;
+									for (int i = 0; i < temporal.size(); i++) {
+										Publicacion* p;
+										p = temporal.at(i);
+										cout << i << ") ";
+										p->verPublicacion();
+										delete p;
+									}
+									int num;
+									cout << endl << "Ingrese el numero de la publicacion que desea modificar: ";
+									cin >> num;
+									if (num >= 0 && num < temporal.size()) {
+										string texto,  fecha,  titulo;
+										cout << "Ingrese el nuevo titulo de la publicacion: ";
+										cin >> titulo;
+										cout << "Ingrese la nueva fecha de la publicacion: ";
+										cin >> fecha;
+										cout << "Ingrese el nuevo texto de la publicacion: ";
+										cin.ignore();
+										getline(cin, texto);
+										Publicacion* p;
+										p = temporal.at(num);
+										temporal.erase(temporal.begin()+num);
+										p->setFechapublicacion(fecha);
+										p->setTitulo(titulo);
+										p->setTexto(texto);
+										temporal.push_back(p);
+										users->setPublicaciones(temporal);
+										cout << endl << "Se Modifico la publicacion exitosamente" << endl;
+									} else {
+										cout << endl << "Ingreso una posicion no valida" << endl;
+									}
+
+								} else {
+									cout << endl << "No hay publicaciones Actualmente";
+								}
+							} else if (opcionAdmin == 3) {
+								vector<Publicacion*> temporal;
+								temporal = users->getPublicaciones();
+								if (!temporal.empty()) {
+									cout << endl << "Estas son las Publicaciones que ha publicado hasta el momento: " << endl;
+									for (int i = 0; i < temporal.size(); i++) {
+										Publicacion* p;
+										p = temporal.at(i);
+										cout << i << ") ";
+										p->verPublicacion();
+										delete p;
+									}
+									int num;
+									cout << endl << "Ingrese el numero de la publicacion que desea borrar: ";
+									cin >> num;
+									if (num >= 0 && num < temporal.size()) {
+										temporal.erase(temporal.begin()+num);
+										users->setPublicaciones(temporal);
+										cout << endl << "Se elimino la publicacion exitosamente" << endl;
+									} else {
+										cout << endl << "Ingreso una posicion no valida" << endl;
+									}
+								}
+							}
+						}
+					} else if (z == 3) {
+						string newpp;
+						cout << "Ingrese su nueva password: ";
+						cin >> newpp;
+						users->setContra(newpp);
+					}
+					usuarios.erase(usuarios.begin()+aux);
+					usuarios.push_back(users);
 				}
+				delete users;
+
 			} else {
 				cout << endl<< "USUARIO NO EXISTENTE, VERIFIQUE CON EL ADMIN POR SU USUARIO" << endl;
 			}
@@ -101,7 +211,38 @@ int main() {
 		}
 
 	}
+	if (!usuarios.empty()) {
+		for (int i = 0; i < usuarios.size(); i++) {
+			Usuario* user;
+			user = usuarios.at(i);
+			string name = user->getUser();
+			string passw = user->getContra();
+			bool adm = user->getEsAdmin();
+			file << i + "," << name + "," << passw + "," << adm << endl;
+			delete user;
+		}
+		for (int i = 0; i < usuarios.size(); i++) {
+			Usuario* user;
+			user = usuarios.at(i);
+			vector<Publicacion*>temporal;
+			temporal = user->getPublicaciones();
+			if (!temporal.empty()) {
+				for (int j = 0; j < temporal.size(); j++) {
+					Publicacion* p;
+					p = temporal.at(j);
+					string texto = p->getTexto();
+					string titulo = p->getTitulo();
+					string fecha = p->getFechapublicacion();
+					int id = p->getIdpublicacion();
+					file2 << id + "," << titulo +"," << texto + "," << fecha << endl;
+					delete p;
+				}
+			}
+		}
 
+	}
+	file2.close();
+	file.close();
 	return 0;
 }
 
@@ -123,6 +264,19 @@ Usuario* agregarUsuario() {
 	vector<Publicacion*> misPublicaciones;
 	cout << endl;
 	return new Usuario(id, user, pass, esadmin);
+}
+
+Publicacion* agregarPublicacion() {
+	int id;
+	string titulo, texto, fecha;
+	cout << "Ingrese el titulo de la publicacion: ";
+	cin >> titulo;
+	cout << "Ingrese la fecha de la publicacion: ";
+	cin >> fecha;
+	cout << "Ingrese el texto de la publicacion: ";
+	cin.ignore();
+	getline(cin, texto);
+	return new Publicacion(id, titulo, texto, fecha);
 }
 
 int LogIn() {

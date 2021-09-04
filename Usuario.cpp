@@ -10,6 +10,10 @@ Usuario::Usuario(int id,string _usuario,string _contra, bool esAdmin ){
 Usuario::~Usuario(){
 }
 
+void Usuario::agregarPublicacion(Publicacion* p){
+	this->misPublicaciones.push_back(p);
+}
+
 int Usuario::getId(){
 	return id;
 }
@@ -46,8 +50,8 @@ vector<Publicacion*> Usuario::getPublicaciones(){
 	return misPublicaciones;
 }
 
-void Usuario::setPublicaciones(Publicacion* publicaciones){
-	misPublicaciones.push_back(publicaciones);
+void Usuario::setPublicaciones(vector<Publicacion*> p){
+	this->misPublicaciones = p;
 }
 
 void Usuario::guardarUsuarios(ofstream* archivoUsuarios){

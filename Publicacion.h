@@ -13,19 +13,17 @@ class Publicacion
     private:
 		int idpublicacion; 
 		string titulo;
-		Usuario* autor;
 		string texto;
 		string fechapublicacion;
 		
 	public:
-		Publicacion(int, string, Usuario*, string, string);
+		Publicacion(int, string, string, string);
 		~Publicacion();
+		void verPublicacion();
 		int getIdpublicacion();
 		void setIdpublicacion(int);
 		string getTitulo();
 		void setTitulo(string);
-		Usuario* getAutor();
-		void setAutor(Usuario*);
 		string getTexto();
 		void setTexto(string);
 		string getFechapublicacion();

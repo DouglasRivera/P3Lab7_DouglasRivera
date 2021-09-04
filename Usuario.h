@@ -20,7 +20,8 @@ class Usuario
 		
 	public:
 		Usuario(int,string,string, bool);
-		~Usuario();	
+		~Usuario();
+		void agregarPublicacion(Publicacion*);
 		int getId();
 		void setId(int);
 		string getUser();
@@ -30,7 +31,7 @@ class Usuario
 		bool getEsAdmin();
 		void setEsAdmin(bool);
 		vector<Publicacion*> getPublicaciones();
-		void setPublicaciones(Publicacion*);	
+		void setPublicaciones(vector<Publicacion*>);	
 		void guardarUsuarios(ofstream*);
 
 	

@@ -1,10 +1,15 @@
 #include "Blog.h"
 
-Blog::Blog(string nombre) {
-	this->nombre = nombre;
+Blog::Blog(string youBlOg, vector<Usuario*> usuarios) {
+	this->youBlOg = youBlOg;
+	this->usuarios = usuarios;
 }
 
 Blog::~Blog(){
+}
+
+bool Blog::compare(Publicacion* a, Publicacion* b) {
+	return true;
 }
 
 void Blog::verPublicaciones() {

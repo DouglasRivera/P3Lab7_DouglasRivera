@@ -8,11 +8,11 @@ using namespace std;
 
 class Blog {
 	private:
-	string nombre;
+	string youBlOg;
 	vector <Usuario*> usuarios;
 
 public:
-	Blog(string);
+	Blog(string, vector<Usuario*>);
 	~Blog();
 	void agregaruser();
 	void verPublicaciones();

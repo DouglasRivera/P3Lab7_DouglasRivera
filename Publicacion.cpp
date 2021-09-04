@@ -1,14 +1,17 @@
 #include "Publicacion.h"
 
-Publicacion::Publicacion(int idpublicacion, string titulo, Usuario* autor, string texto, string fechapublicacion){
+Publicacion::Publicacion(int idpublicacion, string titulo, string texto, string fechapublicacion){
 	idpublicacion = idpublicacion;
 	titulo = titulo;
-	autor = autor;
 	texto = texto;
 	fechapublicacion = fechapublicacion;
 }
 
 Publicacion::~Publicacion(){
+}
+
+void Publicacion::verPublicacion() {
+	cout << endl << "Fecha: "<< this->fechapublicacion<< endl << "Titulo: "<< this->titulo << endl << "  " << texto << endl;
 }
 
 int Publicacion::getIdpublicacion(){
@@ -25,14 +28,6 @@ string Publicacion::getTitulo(){
 
 void Publicacion::setTitulo(string titulo){
 	titulo = titulo;
-}
-
-Usuario* Publicacion::getAutor(){
-	return autor;
-}
-
-void Publicacion::setAutor(Usuario* autor){
-	autor = autor;
 }
 
 string Publicacion::getTexto(){
@@ -53,7 +48,7 @@ void Publicacion::setFechapublicacion(string fechapublicacion){
 
 void Publicacion::guardarPublicaciones(ofstream* archivoPublicaciones){
 	if (archivoPublicaciones-> is_open()){
-		*archivoPublicaciones << this->idpublicacion << "," << this->titulo << "," << this->autor << "," << this->texto << "," << this->fechapublicacion;
+		*archivoPublicaciones << this->idpublicacion << "," << this->titulo << "," << this->texto << "," << this->fechapublicacion;
 	}
 }
 
